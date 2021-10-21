@@ -1,0 +1,30 @@
+export default () => {
+  axios.interceptors.request.use(function (requestConfig) {
+      if (requestConfig.url.indexOf("") > -1) {
+        const [token, setToken] = useState('');
+        const [value, setValue] = useState('');
+        useEffect(() => {
+            (async function () {
+              const formData = new FormData();
+              formData.append("grant_type", "client_credentials");
+              formData.append("scope", "microEmbedApi.powerBI");
+              formData.append("client_id", "AnalyticsPortal");
+              formData.append("client_secret", "108190fe5a704737920d4f72aec24526");
+              
+              
+              axios.post("https://auth.itagroupservices.com/connect/token", formData).then(res => {
+                console.log(res);
+                console.log(res.data);
+              });           
+            })();
+        },[value]);
+             
+        requestConfig.headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      return requestConfig;
+  }, function (error) {
+      return Promise.reject(error);
+  });
+
+}
