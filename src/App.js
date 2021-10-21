@@ -1,15 +1,14 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import TileReports from './components/TileReports';
 
 function App() {
   const value = 'World';
  
   return (
             <div>
-                <h1>  Hello {value}</h1>
-                              
+                <h1>  Hello {value}</h1>                           
 
-               
+               <TileReports></TileReports>
             </div>
          );
 }
