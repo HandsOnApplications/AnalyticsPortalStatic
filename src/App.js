@@ -1,30 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
+import 'bulma/css/bulma.css';
+import './styles.scss';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { HeaderBar, NavBar, NotFound } from './components';
+import About from './About';
 import TileReports from './components/TileReports';
-import axios from 'axios';
 
-function App() {  
-  const [value, setValue] = useState('');
-  useEffect(() => {
-      (async function () {
-      const formData = new FormData();
-      formData.append("grant_type", "client_credentials");
-      formData.append("scope", "microEmbedApi.powerBI");
-      formData.append("client_id", "AnalyticsPortal");
-      formData.append("client_secret", "108190fe5a704737920d4f72aec24526");
-      
-      
-       const response = await axios.post("https://auth.itagroupservices.com/connect/token", formData);
-       console.log(response);
-      })();
-  },[value]);
-  return (
-            <div>
-                <h1>  Reports</h1>                           
+const Products = withRouter(
+  lazy(() => import(/* webpackChunkName: "products" */ './products/Products'))
+);
 
-               <TileReports></TileReports>
-            </div>
-         );
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <HeaderBar />
+        <div className="section columns">
+          <NavBar />
+          <main className="column contentColumn">
+            <Suspense fallback={<div>Loading...</div>}>
+              <Switch>
+                <Redirect from="/" exact to="/tileReports" />
+                <Route path="/tileReports" component={TileReports} />
+                <Route path="/products" component={Products} />
+                <Route path="/about" component={About} />
+                <Route exact path="**" component={NotFound} />
+              </Switch>
+            </Suspense>
+          </main>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
-
