@@ -1,28 +1,6 @@
 {
-    "navigationFallback": {
-        "rewrite": "/index.html",
-        "exclude": ["/images/*.{png,jpg,gif,ico}", "/*.{css,scss,js}"]
-    },
-    "auth": {
-        "identityProviders": {
-          "customOpenIdConnectProviders": {
-            "myProvider": {
-              "registration": {
-                "clientIdSettingName": "AnalyticsPortal",
-                "clientCredential": {
-                  "clientSecretSettingName": "40cfa778358442b886aae149f03f7b46"
-                },
-                "openIdConnectConfiguration": {
-                  "wellKnownOpenIdConfiguration": "https://test.auth.itagroupservices.com/.well-known/openid-configuration"
-                }
-              },
-              "login": {
-                "nameClaimType": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
-                "scopes": ["openid", "profile"],
-                "loginParameterNames": []
-              }
-            }
-          }
-        }
-      }
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["*.{css,scss,js,png,gif,ico,jpg,svg}"]
+  }
 }
